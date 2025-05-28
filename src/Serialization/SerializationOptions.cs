@@ -4,22 +4,22 @@ using TomTokenGenerator.Models;
 namespace TomTokenGenerator.Serialization
 {
     /// <summary>
-    /// Настройки для сериализации
+    /// Serialization settings
     /// </summary>
     public class SerializationOptions
     {
         /// <summary>
-        /// Максимальная длина строки в JSON
+        /// Maximum line length in JSON
         /// </summary>
         public int MaxLineLength { get; set; } = 250;
 
         /// <summary>
-        /// Отступ для форматирования JSON
+        /// Indentation for JSON formatting
         /// </summary>
         public string Indent { get; set; } = "  ";
 
         /// <summary>
-        /// Использовать ли форматирование JSON
+        /// Whether to use JSON formatting
         /// </summary>
         public bool UseFormatting { get; set; } = true;
     }

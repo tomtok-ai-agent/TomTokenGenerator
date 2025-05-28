@@ -10,7 +10,7 @@ using TomTokenGenerator.Translation;
 namespace TomTokenGenerator
 {
     /// <summary>
-    /// Основной класс приложения
+    /// Main application class
     /// </summary>
     public class Program
     {
@@ -18,24 +18,24 @@ namespace TomTokenGenerator
         {
             try
             {
-                // Парсинг аргументов командной строки
+                // Parse command line arguments
                 var options = CommandLineOptions.Parse(args);
 
-                // Создание генератора токенов
+                // Create token generator
                 var generatorOptions = new TokenGeneratorOptions();
                 var tokenGenerator = new RandomTokenGenerator(generatorOptions);
 
-                // Создание таблицы трансляции
+                // Create translation table
                 var translationTable = new TranslationTable();
                 translationTable.InitializeDefaultEntries();
 
-                // Создание метаданных
+                // Create metadata
                 var metadata = new Metadata.Metadata(
                     $"TomToken Sequence - {DateTime.UtcNow:yyyy-MM-dd}",
                     options.TokenCount
                 );
 
-                // Создание сериализатора
+                // Create serializer
                 var serializationOptions = new SerializationOptions
                 {
                     MaxLineLength = 250,
@@ -43,7 +43,7 @@ namespace TomTokenGenerator
                 };
                 var serializer = new JsonTokenSerializer(serializationOptions);
 
-                // Создание объекта метаданных с таблицей трансляции
+                // Create metadata object with translation table
                 var metadataWithTranslation = new
                 {
                     metadata.Name,
@@ -53,24 +53,24 @@ namespace TomTokenGenerator
                     TranslationTable = translationTable.Entries
                 };
 
-                Console.WriteLine($"Генерация {options.TokenCount} токенов...");
+                Console.WriteLine($"Generating {options.TokenCount} tokens...");
 
-                // Генерация и сериализация токенов
+                // Generate and serialize tokens
                 using (var outputStream = options.CreateOutputStream())
                 {
-                    // Генерируем токены и сериализуем их в поток
+                    // Generate tokens and serialize them to the stream
                     var tokens = tokenGenerator.Generate(options.TokenCount);
                     serializer.Serialize(tokens, outputStream, metadataWithTranslation);
                 }
 
                 if (!options.OutputToStdout)
                 {
-                    Console.WriteLine($"Токены успешно записаны в файл: {options.OutputFilePath}");
+                    Console.WriteLine($"Tokens successfully written to file: {options.OutputFilePath}");
                 }
             }
             catch (Exception ex)
             {
-                Console.Error.WriteLine($"Ошибка: {ex.Message}");
+                Console.Error.WriteLine($"Error: {ex.Message}");
                 CommandLineOptions.PrintHelp();
                 Environment.Exit(1);
             }

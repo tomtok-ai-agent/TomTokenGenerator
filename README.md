@@ -1,49 +1,49 @@
 # TomTokenGenerator
 
-CLI-приложение на C# для генерации, сериализации и записи последовательности токенов TomToken в формате JSON.
+A C# CLI application for generating, serializing, and writing a sequence of TomToken tokens in JSON format.
 
-## Особенности
+## Features
 
-- Потоковая генерация и сериализация токенов без буферизации всего объема
-- Ограничение длины строк в JSON (не более 250 символов)
-- Поддержка различных типов токенов: текст, перевод строки, повтор, ссылка
-- Запись в файл или stdout
-- Таблица трансляции для числовых ссылок
+- Streaming generation and serialization of tokens without buffering the entire volume
+- JSON string length limitation (no more than 250 characters)
+- Support for various token types: text, newline, repeat, reference
+- Output to file or stdout
+- Translation table for numeric references
 
-## Типы токенов
+## Token Types
 
-- **TextToken** - токен типа "текст"
-- **NewLineToken** - токен типа "перевод строки" (LF, CR, CRLF)
-- **RepeatToken** - токен типа "повтор другого токена N раз"
-- **ReferenceToken** - токен типа "числовая ссылка на другую сущность"
+- **TextToken** - "text" type token
+- **NewLineToken** - "newline" type token (LF, CR, CRLF)
+- **RepeatToken** - "repeat another token N times" type token
+- **ReferenceToken** - "numeric reference to another entity" type token
 
-## Использование
+## Usage
 
 ```bash
-TomTokenGenerator [опции]
+TomTokenGenerator [options]
 ```
 
-### Опции
+### Options
 
-- `--count, -c <число>` - Количество токенов для генерации (по умолчанию: 1000)
-- `--output, -o <путь>` - Путь к файлу для записи результата
-- `--stdout` - Вывод в стандартный поток вывода (по умолчанию)
-- `--help, -h` - Вывод справки
+- `--count, -c <number>` - Number of tokens to generate (default: 1000)
+- `--output, -o <path>` - Path to output file
+- `--stdout` - Output to standard output (default)
+- `--help, -h` - Display help
 
-### Примеры
+### Examples
 
 ```bash
-# Генерация 1000 токенов и вывод в stdout
+# Generate 1000 tokens and output to stdout
 TomTokenGenerator
 
-# Генерация 10000 токенов и запись в файл
+# Generate 10000 tokens and write to file
 TomTokenGenerator --count 10000 --output tokens.json
 
-# Генерация 5000 токенов и вывод в stdout
+# Generate 5000 tokens and output to stdout
 TomTokenGenerator -c 5000 --stdout
 ```
 
-## Формат JSON
+## JSON Format
 
 ```json
 {
@@ -60,7 +60,7 @@ TomTokenGenerator -c 5000 --stdout
           "value": " "
         }
       },
-      // ... другие записи таблицы трансляции
+      // ... other translation table entries
     ]
   },
   "content": [
@@ -72,28 +72,28 @@ TomTokenGenerator -c 5000 --stdout
       "type": "reference",
       "reference_id": 1
     },
-    // ... другие токены
+    // ... other tokens
   ]
 }
 ```
 
-## Архитектура
+## Architecture
 
-Проект разделен на несколько компонентов:
+The project is divided into several components:
 
-- **Models** - модели данных (TomToken и его наследники)
-- **Generators** - генераторы токенов
-- **Serialization** - сериализаторы токенов
-- **Translation** - таблица трансляции для числовых ссылок
-- **Metadata** - метаданные JSON
-- **CommandLine** - парсинг аргументов командной строки
+- **Models** - data models (TomToken and its descendants)
+- **Generators** - token generators
+- **Serialization** - token serializers
+- **Translation** - translation table for numeric references
+- **Metadata** - JSON metadata
+- **CommandLine** - command line argument parsing
 
-## Сборка и запуск
+## Building and Running
 
 ```bash
-# Сборка проекта
+# Build the project
 dotnet build
 
-# Запуск
-dotnet run -- [опции]
+# Run
+dotnet run -- [options]
 ```

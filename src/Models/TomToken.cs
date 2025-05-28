@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 namespace TomTokenGenerator.Models
 {
     /// <summary>
-    /// Абстрактный базовый класс для всех типов токенов
+    /// Abstract base class for all token types
     /// </summary>
     [JsonDerivedType(typeof(TextToken), typeDiscriminator: "text")]
     [JsonDerivedType(typeof(NewLineToken), typeDiscriminator: "newline")]
@@ -12,7 +12,7 @@ namespace TomTokenGenerator.Models
     public abstract class TomToken
     {
         /// <summary>
-        /// Тип токена
+        /// Token type
         /// </summary>
         [JsonPropertyName("type")]
         public abstract TokenType Type { get; }

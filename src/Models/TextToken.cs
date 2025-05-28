@@ -3,18 +3,18 @@ using System.Text.Json.Serialization;
 namespace TomTokenGenerator.Models
 {
     /// <summary>
-    /// Токен типа "текст"
+    /// "Text" type token
     /// </summary>
     public class TextToken : TomToken
     {
         /// <summary>
-        /// Тип токена - текст
+        /// Token type - text
         /// </summary>
         [JsonPropertyName("type")]
         public override TokenType Type => TokenType.Text;
 
         /// <summary>
-        /// Текстовое содержимое токена
+        /// Text content of the token
         /// </summary>
         [JsonPropertyName("value")]
         public string Value { get; set; }
@@ -24,7 +24,7 @@ namespace TomTokenGenerator.Models
             Value = value;
         }
 
-        // Конструктор без параметров для десериализации
+        // Parameterless constructor for deserialization
         public TextToken()
         {
             Value = string.Empty;

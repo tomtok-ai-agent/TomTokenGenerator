@@ -3,18 +3,18 @@ using System.Text.Json.Serialization;
 namespace TomTokenGenerator.Models
 {
     /// <summary>
-    /// Токен типа "числовая ссылка на другую сущность"
+    /// "Numeric reference to another entity" type token
     /// </summary>
     public class ReferenceToken : TomToken
     {
         /// <summary>
-        /// Тип токена - ссылка
+        /// Token type - reference
         /// </summary>
         [JsonPropertyName("type")]
         public override TokenType Type => TokenType.Reference;
 
         /// <summary>
-        /// Идентификатор ссылки
+        /// Reference identifier
         /// </summary>
         [JsonPropertyName("reference_id")]
         public int ReferenceId { get; set; }
@@ -24,7 +24,7 @@ namespace TomTokenGenerator.Models
             ReferenceId = referenceId;
         }
 
-        // Конструктор без параметров для десериализации
+        // Parameterless constructor for deserialization
         public ReferenceToken()
         {
             ReferenceId = 0;

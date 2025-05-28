@@ -1,49 +1,49 @@
-# TomTokenGenerator - Архитектура проекта
+# TomTokenGenerator - Project Architecture
 
-## Общее описание
-TomTokenGenerator - это CLI-приложение на C#, которое генерирует, сериализует и записывает последовательность токенов TomToken в формате JSON. Приложение обеспечивает потоковую обработку данных без буферизации всего объема токенов в памяти.
+## General Description
+TomTokenGenerator is a C# CLI application that generates, serializes, and writes a sequence of TomToken tokens in JSON format. The application provides streaming data processing without buffering the entire volume of tokens in memory.
 
-## Компоненты архитектуры
+## Architecture Components
 
-### 1. Модель данных (Models)
-- **TomToken** - базовый абстрактный класс для всех типов токенов
-- **TextToken** - токен типа "текст"
-- **NewLineToken** - токен типа "перевод строки"
-- **RepeatToken** - токен типа "повтор другого токена N раз"
-- **ReferenceToken** - токен типа "числовая ссылка на другую сущность"
-- **TokenType** - перечисление типов токенов
+### 1. Data Model (Models)
+- **TomToken** - base abstract class for all token types
+- **TextToken** - "text" type token
+- **NewLineToken** - "newline" type token
+- **RepeatToken** - "repeat another token N times" type token
+- **ReferenceToken** - "numeric reference to another entity" type token
+- **TokenType** - enumeration of token types
 
-### 2. Генератор токенов (Generators)
-- **ITokenGenerator** - интерфейс для генераторов токенов
-- **RandomTokenGenerator** - реализация генератора случайных токенов
-- **TokenGeneratorOptions** - настройки для генератора токенов
+### 2. Token Generator (Generators)
+- **ITokenGenerator** - interface for token generators
+- **RandomTokenGenerator** - implementation of random token generator
+- **TokenGeneratorOptions** - settings for token generator
 
-### 3. Сериализация (Serialization)
-- **ITokenSerializer** - интерфейс для сериализаторов токенов
-- **JsonTokenSerializer** - реализация сериализатора токенов в JSON
-- **SerializationOptions** - настройки для сериализации
+### 3. Serialization (Serialization)
+- **ITokenSerializer** - interface for token serializers
+- **JsonTokenSerializer** - implementation of token serializer to JSON
+- **SerializationOptions** - settings for serialization
 
-### 4. Таблица трансляции (Translation)
-- **TranslationTable** - класс для хранения и управления таблицей трансляции числовых ссылок
-- **TranslationEntry** - запись в таблице трансляции
+### 4. Translation Table (Translation)
+- **TranslationTable** - class for storing and managing the translation table of numeric references
+- **TranslationEntry** - entry in the translation table
 
-### 5. Метаданные (Metadata)
-- **Metadata** - класс для хранения метаданных JSON
+### 5. Metadata (Metadata)
+- **Metadata** - class for storing JSON metadata
 
 ### 6. CLI (CommandLine)
-- **CommandLineOptions** - класс для парсинга аргументов командной строки
-- **Program** - основной класс приложения
+- **CommandLineOptions** - class for parsing command line arguments
+- **Program** - main application class
 
-## Потоки данных
+## Data Flows
 
-1. Пользователь запускает приложение с аргументами командной строки
-2. CommandLineOptions парсит аргументы
-3. Program создает экземпляры TokenGenerator и JsonTokenSerializer
-4. TokenGenerator генерирует токены по одному, без буферизации всего объема
-5. JsonTokenSerializer сериализует токены в JSON в потоковом режиме
-6. Результат записывается в файл или stdout в зависимости от аргументов
+1. User launches the application with command line arguments
+2. CommandLineOptions parses the arguments
+3. Program creates instances of TokenGenerator and JsonTokenSerializer
+4. TokenGenerator generates tokens one by one, without buffering the entire volume
+5. JsonTokenSerializer serializes tokens to JSON in streaming mode
+6. The result is written to a file or stdout depending on the arguments
 
-## Структура файлов проекта
+## Project File Structure
 
 ```
 TomTokenGenerator/
@@ -75,10 +75,10 @@ TomTokenGenerator/
 └── README.md
 ```
 
-## Особенности реализации
+## Implementation Features
 
-1. **Потоковая обработка**: Использование yield return для генерации токенов и JsonTextWriter для потоковой записи JSON.
-2. **Ограничение длины строк**: Контроль длины строк в JsonTextWriter.
-3. **Эффективное использование памяти**: Отсутствие буферизации всего объема токенов.
-4. **Модульность**: Четкое разделение ответственности между компонентами.
-5. **Расширяемость**: Возможность добавления новых типов токенов и сериализаторов.
+1. **Streaming Processing**: Using yield return for token generation and JsonTextWriter for streaming JSON writing.
+2. **String Length Limitation**: Control of string length in JsonTextWriter.
+3. **Efficient Memory Usage**: No buffering of the entire volume of tokens.
+4. **Modularity**: Clear separation of responsibilities between components.
+5. **Extensibility**: Ability to add new token types and serializers.

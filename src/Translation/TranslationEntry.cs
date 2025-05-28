@@ -5,18 +5,18 @@ using TomTokenGenerator.Models;
 namespace TomTokenGenerator.Translation
 {
     /// <summary>
-    /// Запись в таблице трансляции
+    /// Entry in the translation table
     /// </summary>
     public class TranslationEntry
     {
         /// <summary>
-        /// Идентификатор ссылки
+        /// Reference identifier
         /// </summary>
         [JsonPropertyName("id")]
         public int Id { get; set; }
 
         /// <summary>
-        /// Токен, на который ссылается идентификатор
+        /// Token referenced by the identifier
         /// </summary>
         [JsonPropertyName("token")]
         public TomToken Token { get; set; }
@@ -27,7 +27,7 @@ namespace TomTokenGenerator.Translation
             Token = token;
         }
 
-        // Конструктор без параметров для десериализации
+        // Parameterless constructor for deserialization
         public TranslationEntry()
         {
             Id = 0;

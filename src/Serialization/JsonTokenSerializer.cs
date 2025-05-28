@@ -8,7 +8,7 @@ using TomTokenGenerator.Models;
 namespace TomTokenGenerator.Serialization
 {
     /// <summary>
-    /// Сериализатор токенов в JSON с поддержкой потоковой записи и ограничением длины строки
+    /// JSON token serializer with streaming writing support and line length limitation
     /// </summary>
     public class JsonTokenSerializer : ITokenSerializer
     {
@@ -26,64 +26,64 @@ namespace TomTokenGenerator.Serialization
         }
 
         /// <summary>
-        /// Сериализует последовательность токенов в поток
+        /// Serializes a sequence of tokens to a stream
         /// </summary>
-        /// <param name="tokens">Последовательность токенов</param>
-        /// <param name="outputStream">Поток для записи</param>
-        /// <param name="metadata">Метаданные</param>
+        /// <param name="tokens">Sequence of tokens</param>
+        /// <param name="outputStream">Output stream</param>
+        /// <param name="metadata">Metadata</param>
         public void Serialize(IEnumerable<TomToken> tokens, Stream outputStream, object metadata)
         {
             using var writer = new Utf8JsonWriter(outputStream, _jsonWriterOptions);
             
-            // Начало JSON объекта
+            // Start JSON object
             writer.WriteStartObject();
             
-            // Запись метаданных
+            // Write metadata
             writer.WritePropertyName("metadata");
             JsonSerializer.Serialize(writer, metadata);
             
-            // Начало массива токенов
+            // Start tokens array
             writer.WritePropertyName("content");
             writer.WriteStartArray();
             
-            // Счетчик символов в текущей строке
+            // Character counter in current line
             int currentLineLength = 0;
             
-            // Буфер для накопления текущей строки
+            // Buffer for accumulating current line
             StringBuilder lineBuffer = new StringBuilder();
             
-            // Сериализация каждого токена
+            // Serialization of each token
             foreach (var token in tokens)
             {
-                // Сериализуем токен во временный поток
+                // Serialize token to temporary stream
                 using var tokenStream = new MemoryStream();
                 using var tokenWriter = new Utf8JsonWriter(tokenStream, _jsonWriterOptions);
                 
                 JsonSerializer.Serialize(tokenWriter, token);
                 tokenWriter.Flush();
                 
-                // Получаем строковое представление токена
+                // Get string representation of the token
                 string tokenJson = Encoding.UTF8.GetString(tokenStream.ToArray());
                 
-                // Проверяем, не превысит ли добавление токена максимальную длину строки
+                // Check if adding the token will exceed the maximum line length
                 if (currentLineLength + tokenJson.Length > _options.MaxLineLength && currentLineLength > 0)
                 {
-                    // Записываем накопленную строку и сбрасываем буфер
+                    // Write accumulated line and reset buffer
                     outputStream.Write(Encoding.UTF8.GetBytes(lineBuffer.ToString()));
                     outputStream.Write(Encoding.UTF8.GetBytes(Environment.NewLine));
                     lineBuffer.Clear();
                     currentLineLength = 0;
                 }
                 
-                // Добавляем токен в буфер
+                // Add token to buffer
                 lineBuffer.Append(tokenJson);
                 currentLineLength += tokenJson.Length;
                 
-                // Если токен не последний, добавляем запятую
+                // If token is not the last one, add comma
                 lineBuffer.Append(",");
                 currentLineLength += 1;
                 
-                // Если длина строки приближается к максимальной, записываем и сбрасываем буфер
+                // If line length approaches maximum, write and reset buffer
                 if (currentLineLength >= _options.MaxLineLength * 0.9)
                 {
                     outputStream.Write(Encoding.UTF8.GetBytes(lineBuffer.ToString()));
@@ -93,10 +93,10 @@ namespace TomTokenGenerator.Serialization
                 }
             }
             
-            // Записываем оставшиеся данные в буфере
+            // Write remaining data in buffer
             if (lineBuffer.Length > 0)
             {
-                // Удаляем последнюю запятую
+                // Remove last comma
                 if (lineBuffer[lineBuffer.Length - 1] == ',')
                 {
                     lineBuffer.Length--;
@@ -105,11 +105,11 @@ namespace TomTokenGenerator.Serialization
                 outputStream.Write(Encoding.UTF8.GetBytes(lineBuffer.ToString()));
             }
             
-            // Завершение массива и объекта
+            // End array and object
             writer.WriteEndArray();
             writer.WriteEndObject();
             
-            // Сбрасываем буфер записи
+            // Flush write buffer
             writer.Flush();
         }
     }

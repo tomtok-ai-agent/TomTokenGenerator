@@ -4,31 +4,31 @@ using System.IO;
 namespace TomTokenGenerator.CommandLine
 {
     /// <summary>
-    /// Класс для парсинга аргументов командной строки
+    /// Class for parsing command line arguments
     /// </summary>
     public class CommandLineOptions
     {
         /// <summary>
-        /// Количество токенов для генерации
+        /// Number of tokens to generate
         /// </summary>
         public long TokenCount { get; private set; } = 1000;
 
         /// <summary>
-        /// Путь к файлу для записи результата
-        /// Если null, то вывод в stdout
+        /// Path to the output file
+        /// If null, output to stdout
         /// </summary>
         public string OutputFilePath { get; private set; } = null;
 
         /// <summary>
-        /// Флаг, указывающий, что вывод должен быть в stdout
+        /// Flag indicating that output should be to stdout
         /// </summary>
         public bool OutputToStdout => string.IsNullOrEmpty(OutputFilePath);
 
         /// <summary>
-        /// Парсит аргументы командной строки
+        /// Parses command line arguments
         /// </summary>
-        /// <param name="args">Аргументы командной строки</param>
-        /// <returns>Объект с опциями командной строки</returns>
+        /// <param name="args">Command line arguments</param>
+        /// <returns>Object with command line options</returns>
         public static CommandLineOptions Parse(string[] args)
         {
             var options = new CommandLineOptions();
@@ -46,7 +46,7 @@ namespace TomTokenGenerator.CommandLine
                     }
                     else
                     {
-                        throw new ArgumentException("Количество токенов должно быть положительным числом");
+                        throw new ArgumentException("Token count must be a positive number");
                     }
                 }
                 else if (arg == "--output" || arg == "-o")
@@ -58,7 +58,7 @@ namespace TomTokenGenerator.CommandLine
                     }
                     else
                     {
-                        throw new ArgumentException("Не указан путь к файлу для вывода");
+                        throw new ArgumentException("Output file path not specified");
                     }
                 }
                 else if (arg == "--stdout")
@@ -72,7 +72,7 @@ namespace TomTokenGenerator.CommandLine
                 }
                 else
                 {
-                    throw new ArgumentException($"Неизвестный аргумент: {arg}");
+                    throw new ArgumentException($"Unknown argument: {arg}");
                 }
             }
 
@@ -80,22 +80,22 @@ namespace TomTokenGenerator.CommandLine
         }
 
         /// <summary>
-        /// Выводит справку по использованию программы
+        /// Displays help information about program usage
         /// </summary>
         public static void PrintHelp()
         {
-            Console.WriteLine("Использование: TomTokenGenerator [опции]");
-            Console.WriteLine("Опции:");
-            Console.WriteLine("  --count, -c <число>    Количество токенов для генерации (по умолчанию: 1000)");
-            Console.WriteLine("  --output, -o <путь>    Путь к файлу для записи результата");
-            Console.WriteLine("  --stdout               Вывод в стандартный поток вывода (по умолчанию)");
-            Console.WriteLine("  --help, -h             Вывод справки");
+            Console.WriteLine("Usage: TomTokenGenerator [options]");
+            Console.WriteLine("Options:");
+            Console.WriteLine("  --count, -c <number>    Number of tokens to generate (default: 1000)");
+            Console.WriteLine("  --output, -o <path>     Path to output file");
+            Console.WriteLine("  --stdout                Output to standard output (default)");
+            Console.WriteLine("  --help, -h              Display help");
         }
 
         /// <summary>
-        /// Создает поток для записи результата
+        /// Creates a stream for writing the result
         /// </summary>
-        /// <returns>Поток для записи</returns>
+        /// <returns>Output stream</returns>
         public Stream CreateOutputStream()
         {
             if (OutputToStdout)

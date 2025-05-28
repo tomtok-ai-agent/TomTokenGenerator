@@ -1,7 +1,7 @@
 namespace TomTokenGenerator.Models
 {
     /// <summary>
-    /// Перечисление типов токенов
+    /// Enumeration of token types
     /// </summary>
     public enum TokenType
     {

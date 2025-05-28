@@ -4,30 +4,30 @@ using System.Text.Json.Serialization;
 namespace TomTokenGenerator.Metadata
 {
     /// <summary>
-    /// Метаданные для JSON
+    /// Metadata for JSON
     /// </summary>
     public class Metadata
     {
         /// <summary>
-        /// Название данных
+        /// Data name
         /// </summary>
         [JsonPropertyName("name")]
         public string Name { get; set; }
 
         /// <summary>
-        /// Дата создания данных
+        /// Data creation date
         /// </summary>
         [JsonPropertyName("created_at")]
         public DateTime CreatedAt { get; set; }
 
         /// <summary>
-        /// Версия генератора
+        /// Generator version
         /// </summary>
         [JsonPropertyName("generator_version")]
         public string GeneratorVersion { get; set; }
 
         /// <summary>
-        /// Количество токенов
+        /// Token count
         /// </summary>
         [JsonPropertyName("token_count")]
         public long TokenCount { get; set; }

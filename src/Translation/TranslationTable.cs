@@ -5,18 +5,18 @@ using TomTokenGenerator.Models;
 namespace TomTokenGenerator.Translation
 {
     /// <summary>
-    /// Таблица трансляции для числовых ссылок
+    /// Translation table for numeric references
     /// </summary>
     public class TranslationTable
     {
         /// <summary>
-        /// Записи в таблице трансляции
+        /// Entries in the translation table
         /// </summary>
         [JsonPropertyName("entries")]
         public List<TranslationEntry> Entries { get; set; }
 
         /// <summary>
-        /// Словарь для быстрого доступа к записям по идентификатору
+        /// Dictionary for quick access to entries by identifier
         /// </summary>
         [JsonIgnore]
         private Dictionary<int, TomToken> _idToTokenMap;
@@ -28,10 +28,10 @@ namespace TomTokenGenerator.Translation
         }
 
         /// <summary>
-        /// Добавляет запись в таблицу трансляции
+        /// Adds an entry to the translation table
         /// </summary>
-        /// <param name="id">Идентификатор ссылки</param>
-        /// <param name="token">Токен, на который ссылается идентификатор</param>
+        /// <param name="id">Reference identifier</param>
+        /// <param name="token">Token referenced by the identifier</param>
         public void AddEntry(int id, TomToken token)
         {
             var entry = new TranslationEntry(id, token);
@@ -40,10 +40,10 @@ namespace TomTokenGenerator.Translation
         }
 
         /// <summary>
-        /// Получает токен по идентификатору ссылки
+        /// Gets a token by reference identifier
         /// </summary>
-        /// <param name="id">Идентификатор ссылки</param>
-        /// <returns>Токен, на который ссылается идентификатор</returns>
+        /// <param name="id">Reference identifier</param>
+        /// <returns>Token referenced by the identifier</returns>
         public TomToken GetTokenById(int id)
         {
             if (_idToTokenMap.TryGetValue(id, out var token))
@@ -54,21 +54,21 @@ namespace TomTokenGenerator.Translation
         }
 
         /// <summary>
-        /// Инициализирует таблицу трансляции стандартными значениями
+        /// Initializes the translation table with default values
         /// </summary>
         public void InitializeDefaultEntries()
         {
-            // Добавляем стандартные записи для пробелов и других часто используемых символов
-            AddEntry(1, new TextToken(" "));  // Пробел
-            AddEntry(2, new TextToken("\t")); // Табуляция
-            AddEntry(3, new NewLineToken(NewLineType.LF));  // Перевод строки LF
-            AddEntry(4, new NewLineToken(NewLineType.CRLF)); // Перевод строки CRLF
-            AddEntry(5, new TextToken(",")); // Запятая
-            AddEntry(6, new TextToken(".")); // Точка
-            AddEntry(7, new TextToken("!")); // Восклицательный знак
-            AddEntry(8, new TextToken("?")); // Вопросительный знак
-            AddEntry(9, new TextToken(":")); // Двоеточие
-            AddEntry(10, new TextToken(";")); // Точка с запятой
+            // Add standard entries for spaces and other commonly used characters
+            AddEntry(1, new TextToken(" "));  // Space
+            AddEntry(2, new TextToken("\t")); // Tab
+            AddEntry(3, new NewLineToken(NewLineType.LF));  // Line Feed
+            AddEntry(4, new NewLineToken(NewLineType.CRLF)); // Carriage Return + Line Feed
+            AddEntry(5, new TextToken(",")); // Comma
+            AddEntry(6, new TextToken(".")); // Period
+            AddEntry(7, new TextToken("!")); // Exclamation mark
+            AddEntry(8, new TextToken("?")); // Question mark
+            AddEntry(9, new TextToken(":")); // Colon
+            AddEntry(10, new TextToken(";")); // Semicolon
         }
     }
 }

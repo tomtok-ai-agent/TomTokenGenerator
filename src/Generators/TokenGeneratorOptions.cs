@@ -3,52 +3,52 @@ using TomTokenGenerator.Models;
 namespace TomTokenGenerator.Generators
 {
     /// <summary>
-    /// Настройки для генератора токенов
+    /// Settings for token generator
     /// </summary>
     public class TokenGeneratorOptions
     {
         /// <summary>
-        /// Минимальная длина текстового токена
+        /// Minimum length of text token
         /// </summary>
         public int MinTextLength { get; set; } = 2;
 
         /// <summary>
-        /// Максимальная длина текстового токена
+        /// Maximum length of text token
         /// </summary>
         public int MaxTextLength { get; set; } = 10;
 
         /// <summary>
-        /// Вероятность генерации текстового токена (0-100)
+        /// Probability of generating text token (0-100)
         /// </summary>
         public int TextTokenProbability { get; set; } = 60;
 
         /// <summary>
-        /// Вероятность генерации токена перевода строки (0-100)
+        /// Probability of generating newline token (0-100)
         /// </summary>
         public int NewLineTokenProbability { get; set; } = 10;
 
         /// <summary>
-        /// Вероятность генерации токена повтора (0-100)
+        /// Probability of generating repeat token (0-100)
         /// </summary>
         public int RepeatTokenProbability { get; set; } = 10;
 
         /// <summary>
-        /// Вероятность генерации токена ссылки (0-100)
+        /// Probability of generating reference token (0-100)
         /// </summary>
         public int ReferenceTokenProbability { get; set; } = 20;
 
         /// <summary>
-        /// Максимальное количество повторений для токена повтора
+        /// Maximum number of repetitions for repeat token
         /// </summary>
         public int MaxRepeatCount { get; set; } = 5;
 
         /// <summary>
-        /// Максимальное количество ссылок
+        /// Maximum number of references
         /// </summary>
         public int MaxReferenceId { get; set; } = 10;
 
         /// <summary>
-        /// Словарь для генерации текстовых токенов
+        /// Dictionary for generating text tokens
         /// </summary>
         public string[] WordDictionary { get; set; } = new string[]
         {

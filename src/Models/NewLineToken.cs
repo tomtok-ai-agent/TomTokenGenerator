@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 namespace TomTokenGenerator.Models
 {
     /// <summary>
-    /// Тип перевода строки
+    /// Newline type
     /// </summary>
     public enum NewLineType
     {
@@ -13,18 +13,18 @@ namespace TomTokenGenerator.Models
     }
 
     /// <summary>
-    /// Токен типа "перевод строки"
+    /// "Newline" type token
     /// </summary>
     public class NewLineToken : TomToken
     {
         /// <summary>
-        /// Тип токена - перевод строки
+        /// Token type - newline
         /// </summary>
         [JsonPropertyName("type")]
         public override TokenType Type => TokenType.NewLine;
 
         /// <summary>
-        /// Тип перевода строки (LF, CR, CRLF)
+        /// Newline type (LF, CR, CRLF)
         /// </summary>
         [JsonPropertyName("newline_type")]
         public NewLineType NewLineType { get; set; }
@@ -34,14 +34,14 @@ namespace TomTokenGenerator.Models
             NewLineType = newLineType;
         }
 
-        // Конструктор без параметров для десериализации
+        // Parameterless constructor for deserialization
         public NewLineToken()
         {
             NewLineType = NewLineType.LF;
         }
 
         /// <summary>
-        /// Получить строковое представление перевода строки
+        /// Get string representation of the newline
         /// </summary>
         public string GetNewLineString()
         {

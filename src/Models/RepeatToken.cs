@@ -3,24 +3,24 @@ using System.Text.Json.Serialization;
 namespace TomTokenGenerator.Models
 {
     /// <summary>
-    /// Токен типа "повтор другого токена N раз"
+    /// "Repeat another token N times" type token
     /// </summary>
     public class RepeatToken : TomToken
     {
         /// <summary>
-        /// Тип токена - повтор
+        /// Token type - repeat
         /// </summary>
         [JsonPropertyName("type")]
         public override TokenType Type => TokenType.Repeat;
 
         /// <summary>
-        /// Токен, который нужно повторить
+        /// Token to repeat
         /// </summary>
         [JsonPropertyName("token")]
         public TomToken Token { get; set; }
 
         /// <summary>
-        /// Количество повторений
+        /// Number of repetitions
         /// </summary>
         [JsonPropertyName("count")]
         public int Count { get; set; }
@@ -31,7 +31,7 @@ namespace TomTokenGenerator.Models
             Count = count;
         }
 
-        // Конструктор без параметров для десериализации
+        // Parameterless constructor for deserialization
         public RepeatToken()
         {
             Token = null!;

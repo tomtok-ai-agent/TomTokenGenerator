@@ -3,15 +3,15 @@ using TomTokenGenerator.Models;
 namespace TomTokenGenerator.Generators
 {
     /// <summary>
-    /// Интерфейс для генераторов токенов
+    /// Interface for token generators
     /// </summary>
     public interface ITokenGenerator
     {
         /// <summary>
-        /// Генерирует последовательность токенов
+        /// Generates a sequence of tokens
         /// </summary>
-        /// <param name="count">Количество токенов для генерации</param>
-        /// <returns>Последовательность токенов</returns>
+        /// <param name="count">Number of tokens to generate</param>
+        /// <returns>Sequence of tokens</returns>
         IEnumerable<TomToken> Generate(long count);
     }
 }
